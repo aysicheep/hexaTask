@@ -1,0 +1,27 @@
+# Dépendances
+/vendor/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Environnement
+.env
+.env.local
+
+# Logs
+*.log
+
+# Cache / build
+/cache/
+/build/
+
+# IDE
+/.idea/
+/.vscode/
+
+# PHPUnit
+.phpunit.result.cache
+
+# Composer (optionnel)
+composer.phar
