@@ -18,6 +18,9 @@ final readonly class MemberId
 
     public function __toString()
     {
-        throw new \Exception('Not implemented');
+        return $this->value;
+    }
+    public function equals (MemberId $other): bool {
+        return $this->value === $other->value;
     }
 }
