@@ -1,0 +1,42 @@
+{
+    "name": "aysi0/zeroframe",
+    "description": "Lightweight PHP framework experiment",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.2",
+        "ramsey/uuid": "^4.9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^13.1",
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.95"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "cs:check": "php-cs-fixer fix --dry-run --diff --using-cache=no",
+        "cs:fix": "php-cs-fixer fix",
+        "stan": "phpstan analyse",
+        "test": "phpunit",
+        "ci": [
+            "@cs:check",
+            "@stan",
+            "@test"
+        ]
+    },
+    "authors": [
+        {
+            "name": "aysi",
+            "email": "aysicheep@gmail.com"
+        }
+    ]
+}

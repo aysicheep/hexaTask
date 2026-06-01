@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Domain\Member;
+
+use Ramsey\Uuid\Uuid;
+
+/**
+ * Value object representing a member's unique identifier (UUID v4).
+ */
+final readonly class MemberId
+{
+    public function __construct(private string $value) {}
+
+    public static function generate(): self
+    {
+        return new self(Uuid::uuid4()->toString());
+    }
+
+    public function value(): string
+    {
+        return $this->value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
+    }
+
+    public function equals(MemberId $other): bool
+    {
+        return $this->value === $other->value;
+    }
+}
