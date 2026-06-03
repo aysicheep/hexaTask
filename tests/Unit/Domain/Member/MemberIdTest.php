@@ -1,6 +1,6 @@
 <?php 
     declare(strict_types= 1);
-    namespace Tests\Unit\Domain\Shared\Member;
+    namespace Tests\Unit\Domain\Member;
 
     use App\Domain\Member\MemberId;
     use PHPUnit\Framework\Attributes\CoversClass;

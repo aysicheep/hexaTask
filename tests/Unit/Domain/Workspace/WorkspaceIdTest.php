@@ -1,6 +1,6 @@
 <?php 
 declare(strict_types=1);
-namespace Tests\Unit\Domain\Shared\Workspace;
+namespace Tests\Unit\Domain\Workspace;
 use App\Domain\Workspace\WorkspaceId;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
