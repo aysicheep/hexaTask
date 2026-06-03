@@ -2,7 +2,7 @@
     declare(strict_types= 1);
     namespace Tests\Unit\Domain\Shared\Member;
 
-    use App\Domain\Shared\Member\MemberId;
+    use App\Domain\Member\MemberId;
     use PHPUnit\Framework\Attributes\CoversClass;
     use PHPUnit\Framework\TestCase;
 

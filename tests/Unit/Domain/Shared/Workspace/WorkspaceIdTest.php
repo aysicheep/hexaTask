@@ -1,11 +1,11 @@
 <?php 
 declare(strict_types=1);
 namespace Tests\Unit\Domain\Shared\Workspace;
-use App\Domain\Shared\Workspace\WorkspaceId;
+use App\Domain\Workspace\WorkspaceId;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass(\App\Domain\Shared\Workspace\WorkspaceId::class)]
+#[CoversClass(\App\Domain\Workspace\WorkspaceId::class)]
 final class WorkspaceIdTest extends TestCase
 {
     public function testGenerate(): void

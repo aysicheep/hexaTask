@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 namespace Tests\Unit\Domain\Shared\Task;
-use App\Domain\Shared\Task\TaskStatus;
+use App\Domain\Task\TaskStatus;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
