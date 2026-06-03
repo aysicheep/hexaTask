@@ -1,6 +1,6 @@
 <?php 
 declare(strict_types=1);
-namespace Tests\Unit\Domain\Shared\Task;
+namespace Tests\Unit\Domain\Task;
 
 use App\Domain\Task\TaskId;
 use PHPUnit\Framework\Attributes\CoversClass;

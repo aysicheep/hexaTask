@@ -1,6 +1,6 @@
 <?php 
 declare(strict_types=1);
-namespace Tests\Unit\Domain\Shared\Task;
+namespace Tests\Unit\Domain\Task;
 use App\Domain\Task\TaskStatus;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
