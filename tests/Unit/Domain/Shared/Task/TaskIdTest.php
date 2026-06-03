@@ -2,11 +2,11 @@
 declare(strict_types=1);
 namespace Tests\Unit\Domain\Shared\Task;
 
-use App\Domain\Shared\Task\TaskId;
+use App\Domain\Task\TaskId;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(\App\Domain\Shared\Task\TaskId::class)]
+#[CoversClass(\App\Domain\Task\TaskId::class)]
 final class TaskIdTest extends TestCase
 {
     public function testGenerate(): void
