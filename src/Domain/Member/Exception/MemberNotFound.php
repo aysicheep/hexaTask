@@ -6,6 +6,11 @@ use DomainException;
 use Throwable;
 use Override;
 
+/**
+ * Levée lorsqu'un membre est introuvable en base de données.
+ *
+ * Le message embarque l'identifiant recherché pour faciliter le diagnostic.
+ */
 final class MemberNotFound extends \DomainException
 {
     public function __construct(string $memberId)

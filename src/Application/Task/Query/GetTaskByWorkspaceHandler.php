@@ -6,20 +6,34 @@ use App\Domain\Task\TaskRepositoryInterface;
 use App\Domain\Workspace\WorkspaceId;
 use App\Domain\Task\Task;
 
-class GetTaskByWorkspaceHandler{
+/**
+ * Handler de la query GetTaskByWorkspaceQuery.
+ *
+ * Récupère toutes les tâches d'un workspace et les projette en TaskReadModel,
+ * un objet plat adapté à la lecture (API, affichage).
+ */
+class GetTaskByWorkspaceHandler
+{
     public function __construct(
-    private TaskRepositoryInterface $taskRepositoryInterface)
-    {
-    }
+        private TaskRepositoryInterface $taskRepositoryInterface
+    ) {}
 
-    /** @return TaskReadModel[] */
-    public function __invoke(GetTaskByWorkspaceQuery $getTaskByWorkspaceQuery): array{
+    /**
+     * Retourne la liste des tâches du workspace sous forme de read models.
+     *
+     * @param GetTaskByWorkspaceQuery $getTaskByWorkspaceQuery Query contenant le workspaceId.
+     * @return TaskReadModel[]
+     */
+    public function __invoke(GetTaskByWorkspaceQuery $getTaskByWorkspaceQuery): array
+    {
         $workpaceId = new WorkspaceId($getTaskByWorkspaceQuery->workspaceId);
         $tasks = $this->taskRepositoryInterface->getAllByWorkspaceId($workpaceId);
         return array_map($this->toReadModel(...), $tasks);
     }
 
-    private function toReadModel(Task $task) :TaskReadModel {
+    /** Projette un agrégat Task en TaskReadModel. */
+    private function toReadModel(Task $task): TaskReadModel
+    {
         return new TaskReadModel(
             $task->id()->value(),
             $task->title()->value(),
@@ -28,5 +42,4 @@ class GetTaskByWorkspaceHandler{
             $task->assignedTo()?->value()
         );
     }
-    
 }

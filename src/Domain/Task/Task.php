@@ -14,7 +14,11 @@ use App\Domain\Task\Exception\InvalidTaskTransitionException;
 
 
 /**
- * Summary of Task
+ * Agrégat représentant une tâche appartenant à un workspace.
+ *
+ * Une tâche naît avec le statut TODO et suit un cycle de vie strict :
+ * TODO → IN_PROGRESS → COMPLETED. L'état COMPLETED est terminal.
+ * Elle peut être assignée à un membre tant qu'elle n'est pas terminée.
  */
 final class Task extends AggregateRoot
 {
@@ -27,11 +31,11 @@ final class Task extends AggregateRoot
     ) {}
 
     /**
-     * Summary of create
-     * @param TaskId $id
-     * @param TaskTitle $title
-     * @param WorkspaceId $workspaceId
-     * @return Task
+     * Crée une nouvelle tâche dans un workspace et enregistre l'événement TaskCreated.
+     *
+     * @param TaskId $id            Identifiant unique de la tâche.
+     * @param TaskTitle $title      Titre de la tâche (non vide, max 250 caractères).
+     * @param WorkspaceId $workspaceId Workspace auquel appartient la tâche.
      */
     public static function create(TaskId $id, TaskTitle $title, WorkspaceId $workspaceId): self
     {
@@ -41,24 +45,24 @@ final class Task extends AggregateRoot
     }
 
     /**
-     * Assign this task to a member.
-     * A task can be assigned only if not completed
-     * @param MemberId $memberId
-     ** @throws TaskAlreadyClosedException
+     * Assigne la tâche à un membre.
+     *
+     * @param MemberId $memberId Identifiant du membre à qui assigner la tâche.
+     * @throws TaskAlreadyClosedException Si la tâche est déjà au statut COMPLETED.
      */
     public function assign(MemberId $memberId): void
     {
-        if($this->status === TaskStatus::COMPLETED ) {
+        if ($this->status === TaskStatus::COMPLETED) {
             throw new TaskAlreadyClosedException("Il est impossible d'assigner une tache {$this->status->label()}");
         }
         $this->assignedTo = $memberId;
     }
 
     /**
-     * Change status of a Task
-     * @param TaskStatus $newStatus
-     ** @throws InvalidTaskTransitionException
-     * @return void
+     * Effectue une transition vers un nouveau statut et enregistre TaskStatusChanged.
+     *
+     * @param TaskStatus $newStatus Le statut cible.
+     * @throws InvalidTaskTransitionException Si la transition est interdite par le cycle de vie.
      */
     public function changeStatus(TaskStatus $newStatus): void
     {
@@ -73,56 +77,46 @@ final class Task extends AggregateRoot
     }
 
     /**
-     * Summary of complete
-     * @return void
+     * Raccourci pour passer la tâche au statut COMPLETED.
+     *
+     * @throws InvalidTaskTransitionException Si la transition vers COMPLETED est interdite.
      */
     public function complete(): void
     {
         $this->changeStatus(TaskStatus::COMPLETED);
     }
 
-    /**
-     * Summary of status
-     * @return TaskStatus
-     */
+    /** Retourne le statut courant de la tâche. */
     public function status(): TaskStatus
     {
         return $this->status;
     }
-    /**
-     * Summary of id
-     * @return TaskId
-     */
+
+    /** Retourne l'identifiant unique de la tâche. */
     public function id(): TaskId
     {
         return $this->id;
     }
 
-    /**
-     * Summary of title
-     * @return TaskTitle
-     */
+    /** Retourne le titre de la tâche. */
     public function title(): TaskTitle
     {
         return $this->title;
     }
 
-    /**
-     * Summary of workspaceId
-     * @return WorkspaceId
-     */
+    /** Retourne l'identifiant du workspace auquel appartient la tâche. */
     public function workspaceId(): WorkspaceId
     {
         return $this->workspaceId;
     }
 
     /**
-     * Summary of assignedTo
-     * @return MemberId|null
+     * Retourne l'identifiant du membre assigné à la tâche.
+     *
+     * @return MemberId|null null si la tâche n'est pas encore assignée.
      */
     public function assignedTo(): ?MemberId
     {
         return $this->assignedTo;
     }
-
 }
