@@ -22,9 +22,9 @@ enum MemberRole: string
     public function label(): string
     {
         return match ($this) {
-            self::OWNER => "owner",
-            self::ADMIN => "admin",
-            self::MEMBER => "member",
+            self::OWNER => "Propietaire",
+            self::ADMIN => "Administrateur",
+            self::MEMBER => "Membre",
         };
     }
 
@@ -38,7 +38,7 @@ enum MemberRole: string
     }
 
     /** Returns true if this role can delete the workspace (OWNER only). */
-    public function canDeleteWorkpace(): bool
+    public function canDeleteWorkspace(): bool
     {
         return $this === self::OWNER;
     }
