@@ -9,28 +9,38 @@ use App\Domain\Task\TaskId;
 use App\Domain\Task\TaskRepositoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class AssignTaskService 
+/**
+ * Service applicatif orchestrant l'assignation d'une tâche à un membre.
+ *
+ * Récupère la tâche, délègue la règle métier à l'agrégat Task
+ * et dispatche les événements domaine enregistrés.
+ */
+class AssignTaskService
 {
     public function __construct(
-       private TaskRepositoryInterface $taskRepositoryInterface,
-       private EventDispatcherInterface $eventDispatcherInterface)
-    {
-    }
+        private TaskRepositoryInterface $taskRepositoryInterface,
+        private EventDispatcherInterface $eventDispatcherInterface
+    ) {}
 
-    public function assign(AssignTaskCommand $assignTaskCommand) :void
+    /**
+     * Assigne la tâche identifiée dans la commande au membre indiqué.
+     *
+     * @param AssignTaskCommand $assignTaskCommand Données de la commande (taskId, memberId).
+     * @throws TaskNotFoundException          Si aucune tâche ne correspond au taskId.
+     * @throws TaskAlreadyClosedException     Si la tâche est déjà au statut COMPLETED.
+     */
+    public function assign(AssignTaskCommand $assignTaskCommand): void
     {
         $taskId = new TaskId($assignTaskCommand->taskId);
         $task = $this->taskRepositoryInterface->findById($taskId);
-        if($task === null){
+        if ($task === null) {
             throw new TaskNotFoundException($assignTaskCommand->taskId);
         }
         $memberId = new MemberId($assignTaskCommand->memberId);
         $task->assign($memberId);
         $events = $task->releaseEvents();
-        foreach($events as $event){
+        foreach ($events as $event) {
             $this->eventDispatcherInterface->dispatch($event);
         }
     }
-
-    
 }

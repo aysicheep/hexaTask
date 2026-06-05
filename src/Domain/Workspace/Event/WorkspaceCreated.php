@@ -8,6 +8,12 @@ use App\Domain\Workspace\WorkspaceId;
 use App\Domain\Member\MemberId;
 use App\Domain\Shared\DomainEvent;
 
+/**
+ * Événement émis lorsqu'un nouveau workspace est créé.
+ *
+ * @property WorkspaceId $workspaceId Identifiant du workspace nouvellement créé.
+ * @property MemberId $memberId       Identifiant du propriétaire (OWNER) du workspace.
+ */
 final class WorkspaceCreated extends DomainEvent
 {
     public function __construct(
@@ -16,5 +22,4 @@ final class WorkspaceCreated extends DomainEvent
     ) {
         parent::__construct();
     }
-
 }

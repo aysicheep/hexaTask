@@ -9,7 +9,11 @@ use App\Domain\Shared\AggregateRoot;
 use App\Domain\Member\Exception\InvalidMemberRoleChangeException;
 
 /**
- * Summary of Member
+ * Agrégat représentant un utilisateur dans le système.
+ *
+ * Un membre possède un identifiant unique et un rôle déterminant ses droits
+ * dans les workspaces auxquels il appartient. Le rôle OWNER ne peut jamais
+ * être modifié une fois attribué.
  */
 final class Member extends AggregateRoot
 {
@@ -18,11 +22,12 @@ final class Member extends AggregateRoot
         private MemberRole $role
     ) {
     }
+
     /**
-     * Summary of create
-     * @param MemberId $id
-     * @param MemberRole $role
-     * @return Member
+     * Crée un nouveau membre et enregistre l'événement MemberCreated.
+     *
+     * @param MemberId $id   Identifiant unique du membre.
+     * @param MemberRole $role Rôle initial du membre (OWNER, ADMIN ou MEMBER).
      */
     public static function create(MemberId $id, MemberRole $role): self
     {
@@ -30,25 +35,29 @@ final class Member extends AggregateRoot
         $member->record(new MemberCreated($id));
         return $member;
     }
-    /**
-     * Summary of id
-     * @return MemberId
-     */
+
+    /** Retourne l'identifiant unique du membre. */
     public function id(): MemberId
     {
         return $this->id;
     }
-    /**
-     * Summary of role
-     * @return MemberRole
-     */
+
+    /** Retourne le rôle courant du membre. */
     public function role(): MemberRole
     {
         return $this->role;
     }
 
-    public function changeRole(MemberRole $memberRole) :void {
-        if($this->role === MemberRole::OWNER) throw new InvalidMemberRoleChangeException("Impossible de changer role Owner");
+    /**
+     * Change le rôle du membre.
+     *
+     * @throws InvalidMemberRoleChangeException Si le membre est OWNER (rôle immuable).
+     */
+    public function changeRole(MemberRole $memberRole): void
+    {
+        if ($this->role === MemberRole::OWNER) {
+            throw new InvalidMemberRoleChangeException("Impossible de changer role Owner");
+        }
         $this->role = $memberRole;
     }
 }
