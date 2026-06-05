@@ -55,4 +55,8 @@ final class Workspace extends AggregateRoot
     {
         return $this->ownerId;
     }
+
+    /** @return MemberId[] */
+    public function memberIds():array
+    {return $this->memberIds();}
 }
