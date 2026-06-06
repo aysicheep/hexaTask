@@ -2,19 +2,14 @@
 declare(strict_types=1);
 namespace Tests\Integration\Application\Task;
 
-use App\Application\Task\CompleteTask\CompleteTaskCommand;
 use App\Application\Task\CreateTask\CreateTaskCommand;
 use App\Application\Task\CreateTask\CreateTaskService;
 use App\Domain\Member\MemberId;
 use App\Domain\Workspace\WorkspaceId;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\Integration\InMemory\InMemoryTaskRepository;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use PHPUnit\Framework\MockObject\MockBuilder;
-use PHPUnit\Framework\Attributes\CoversClass;
 
-#[CoversClass(CreateTaskService::class)]
 final class CreateTaskServiceTest extends TestCase
 {
     public function testCreateTaskSuccessfully(){

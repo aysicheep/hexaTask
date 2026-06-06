@@ -4,9 +4,11 @@ namespace App\Application\Task\AssignTask;
 
 use App\Domain\Member\Exception\MemberNotFound;
 use App\Domain\Member\MemberId;
+use App\Domain\Task\Exception\TaskAlreadyClosedException;
 use App\Domain\Task\Exception\TaskNotFoundException;
 use App\Domain\Task\TaskId;
 use App\Domain\Task\TaskRepositoryInterface;
+use App\Domain\Task\TaskStatus;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -35,6 +37,9 @@ class AssignTaskService
         $task = $this->taskRepositoryInterface->findById($taskId);
         if ($task === null) {
             throw new TaskNotFoundException($assignTaskCommand->taskId);
+        }
+        if($task->status() === TaskStatus::COMPLETED) {
+            throw new TaskAlreadyClosedException("La tâche est terminée.");
         }
         $memberId = new MemberId($assignTaskCommand->memberId);
         $task->assign($memberId);

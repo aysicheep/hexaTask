@@ -26,7 +26,6 @@ class CreateTaskService
      * Exécute la création d'une tâche.
      *
      * @param CreateTaskCommand $createCommand Données de la commande (titre, workspaceId, memberId optionnel).
-     * @throws InvalidTaskTitle Si le titre est vide ou dépasse 250 caractères.
      */
     public function execute(CreateTaskCommand $createCommand): void
     {

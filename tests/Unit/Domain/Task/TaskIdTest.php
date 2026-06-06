@@ -16,5 +16,10 @@ final class TaskIdTest extends TestCase
         $this->assertInstanceOf(TaskId::class, $taskId);
         $this->assertMatchesRegularExpression('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $taskId->value());
     }
+
+    public function testToString() :void{
+        $taskId = TaskId::generate();
+        $this->assertSame($taskId->value(),(string) $taskId);
+    }
 }
 ?>

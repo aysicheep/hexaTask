@@ -11,13 +11,9 @@ use App\Domain\Task\Task;
 use App\Domain\Task\TaskId;
 use App\Domain\Task\TaskTitle;
 use App\Domain\Workspace\WorkspaceId;
-use PhpParser\Node\Expr\Assign;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Util\Test;
 use App\Domain\Task\Exception\TaskNotFoundException;
 
-#[CoversClass(AssignTaskService::class)]
 class AssignTaskServiceTest extends TestCase {
     private InMemoryTaskRepository $inMemoryTaskRepository;
     private AssignTaskService $assigntaskService;
