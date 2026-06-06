@@ -1,6 +1,8 @@
 <?php 
 declare(strict_types=1);
 namespace Tests\Unit\Domain\Workspace;
+
+use App\Domain\Workspace\Exception\InvalidWorspaceIdException;
 use App\Domain\Workspace\WorkspaceId;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,5 +25,16 @@ final class WorkspaceIdTest extends TestCase
         $this->assertTrue($workspaceId1->equals($workspaceId2));
         $this->assertFalse($workspaceId1->equals($workspaceId3));
     }
+
+    public function testToString() :void{
+        $workspaceId = WorkspaceId::generate();
+        $this->assertSame($workspaceId->value(),(string) $workspaceId);
+    }
+
+    public function testInvalidWorspaceIdException() :void {
+        $this->expectException(InvalidWorspaceIdException::class);
+        new WorkspaceId('invalid-uuid');
+    }
+
 }
 ?>

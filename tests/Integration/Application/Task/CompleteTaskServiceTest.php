@@ -9,15 +9,11 @@ use Tests\Integration\InMemory\InMemoryTaskRepository;
 use App\Application\Task\CompleteTask\CompleteTaskService;
 use App\Domain\Task\Task;
 use App\Domain\Task\TaskId;
-use App\Domain\Task\TaskRepositoryInterface;
 use App\Domain\Task\TaskStatus;
 use App\Domain\Task\TaskTitle;
 use App\Domain\Workspace\WorkspaceId;
-use Override;
-USE PHPUnit\Framework\Attributes\CoversClass;
 use App\Domain\Task\Exception\TaskNotFoundException;
 
-#[CoversClass(CompleteTaskService::class)]
 class CompleteTaskServiceTest extends TestCase {
     private InMemoryTaskRepository $inMemoryTaskRepository;
     private CompleteTaskService $completeTaskService;

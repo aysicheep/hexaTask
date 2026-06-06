@@ -7,15 +7,12 @@ use App\Application\Task\Query\GetTaskByWorkspaceQuery;
 use App\Application\Task\Query\TaskReadModel;
 use App\Domain\Task\Task;
 use App\Domain\Task\TaskId;
-use App\Domain\Task\TaskRepositoryInterface;
 use App\Domain\Task\TaskTitle;
 use App\Domain\Workspace\WorkspaceId;
 use Override;
-use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tests\Integration\InMemory\InMemoryTaskRepository;
 
-#[CoversClass(GetTaskByWorkspaceHandler::class)]
 final class GetTaskByWorkspaceHandlerTest extends TestCase{
 
     private InMemoryTaskRepository $inMemoryRepository;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Workspace;
 
+use App\Domain\Workspace\Exception\InvalidWorspaceIdException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -19,7 +20,7 @@ final readonly class WorkspaceId
     public function __construct(private string $value)
     {
         if (preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $value) !== 1) {
-            throw new \InvalidArgumentException('Invalid UUID format');
+            throw new InvalidWorspaceIdException('Invalid UUID format');
         }
     }
 

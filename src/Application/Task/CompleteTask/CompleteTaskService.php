@@ -26,7 +26,6 @@ class CompleteTaskService
      *
      * @param CompleteTaskCommand $completeTaskCommand Données de la commande (taskId).
      * @throws TaskNotFoundException          Si aucune tâche ne correspond au taskId.
-     * @throws InvalidTaskTransitionException Si la transition vers COMPLETED est interdite.
      */
     public function complete(CompleteTaskCommand $completeTaskCommand): void
     {

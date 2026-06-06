@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Workspace;
 
+use App\Domain\Workspace\Exception\EmptyWorkspaceNameException;
+use App\Domain\Workspace\Exception\WorkspaceNameTooLongException;
 use InvalidArgumentException;
 
 /**
@@ -16,17 +18,18 @@ final readonly class WorkspaceName
     private string $value;
 
     /**
-     * @throws InvalidArgumentException If $value is empty or exceeds 100 characters.
+     * @throws WorkspaceNameTooLongException If $value is exceeds 100 characters.
+     * @throws EmptyWorkspaceNameException If $value is empty.
      */
     public function __construct(string $value)
     {
 
         $value = trim($value);
         if ($value === '') {
-            throw new InvalidArgumentException('Empty name');
+            throw new EmptyWorkspaceNameException('Empty name');
         }
         if (mb_strlen($value) > 100) {
-            throw new InvalidArgumentException('Too long');
+            throw new WorkspaceNameTooLongException('Too long');
         }
 
         $this->value = $value;
