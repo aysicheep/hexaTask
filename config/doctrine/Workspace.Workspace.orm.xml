@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Domain\Workspace\Workspace" table="workspaces">
+        <id name="id" type="workspace_id" column="id">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="name" type="workspace_name" column="workspace_name"/>
+        <field name="ownerId" type="member_id" column="member_id"/>
+        <many-to-many field="memberIds" target-entity="App\Domain\Member\Member">
+            <join-table name="workspace_members">
+                <join-columns>
+                    <join-column name="workspace_id" referenced-column-name="id"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="member_id" referenced-column-name="id"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+    </entity>
+
+</doctrine-mapping>
