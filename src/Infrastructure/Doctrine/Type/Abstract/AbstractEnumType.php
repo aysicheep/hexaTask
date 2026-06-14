@@ -22,6 +22,6 @@ abstract class AbstractEnumType extends Type
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         if ($value === null) return null;
-        return $value->value();
+        return $value->value;
     }
 }
