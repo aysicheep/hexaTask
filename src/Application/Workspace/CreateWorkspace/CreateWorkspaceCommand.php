@@ -14,6 +14,6 @@ class CreateWorkspaceCommand
     public function __construct(
         public readonly string $workspaceId,
         public readonly string $workspaceName,
-        public readonly ?string $memberId
+        public readonly string $memberId
     ) {}
 }
