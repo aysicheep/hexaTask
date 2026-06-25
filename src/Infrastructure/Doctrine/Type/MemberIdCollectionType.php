@@ -23,14 +23,36 @@ final class MemberIdCollectionType extends Type
     /** @return MemberId[] */
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): array
     {
-        if ($value === null) return [];
-        $decoded = json_decode($value, true);
-        return array_map(fn(string $id) => new MemberId($id), $decoded);
+        if ($value === null) {
+            return [];
+        }
+
+        if (!is_string($value)) {
+            throw new \InvalidArgumentException(
+                sprintf('Expected string from DB, got %s', get_debug_type($value))
+            );
+        }
+
+        /** @var list<string> $decoded */
+        $decoded = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+        return array_map(static fn (string $id): MemberId => new MemberId($id), $decoded);
     }
 
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): string
     {
-        if ($value === null) return '[]';
-        return json_encode(array_map(fn(MemberId $id) => $id->value(), $value));
+        if ($value === null || $value === []) {
+            return '[]';
+        }
+
+        if (!is_array($value)) {
+            throw new \InvalidArgumentException(
+                sprintf('Expected array of MemberId, got %s', get_debug_type($value))
+            );
+        }
+
+        return json_encode(
+            array_map(static fn (MemberId $id): string => $id->value(), $value),
+            JSON_THROW_ON_ERROR
+        );
     }
 }

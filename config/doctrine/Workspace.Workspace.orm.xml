@@ -10,16 +10,7 @@
         </id>
         <field name="name" type="workspace_name" column="workspace_name"/>
         <field name="ownerId" type="member_id" column="member_id"/>
-        <many-to-many field="memberIds" target-entity="App\Domain\Member\Member">
-            <join-table name="workspace_members">
-                <join-columns>
-                    <join-column name="workspace_id" referenced-column-name="id"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="member_id" referenced-column-name="id"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <field name="memberIds" type="member_id_collection" column="member_ids"/>
     </entity>
 
 </doctrine-mapping>

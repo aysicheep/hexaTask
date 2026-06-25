@@ -22,6 +22,6 @@ class DoctrineMemberRepository implements MemberRepositoryInterface
     #[Override]
     public function findById(MemberId $memberId): ?Member
     {
-        return $this->em->find(Member::class,$memberId->value());
+        return $this->em->find(Member::class,$memberId);
     }
 }
