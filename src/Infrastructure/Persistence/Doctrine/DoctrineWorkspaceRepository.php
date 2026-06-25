@@ -22,6 +22,6 @@ class DoctrineWorkspaceRepository implements WorkspaceRepositoryInterface
     #[Override]
     public function findById(WorkspaceId $workspaceId): ?Workspace
     {
-        return $this->em->find(Workspace::class,$workspaceId->value());
+        return $this->em->find(Workspace::class,$workspaceId);
     }
 }
