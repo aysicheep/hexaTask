@@ -52,8 +52,8 @@ final class DoctrineMemberRepositoryTest extends KernelTestCase
             $savedMember->id()->value()
         );
         $this->assertSame(
-            $savedMember->role(),
-            $memberRole
+            $savedMember->role()->value,
+            $memberRole->value
         );
     }
 }
