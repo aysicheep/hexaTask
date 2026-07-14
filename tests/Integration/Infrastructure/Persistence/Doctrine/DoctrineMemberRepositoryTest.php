@@ -56,4 +56,10 @@ final class DoctrineMemberRepositoryTest extends KernelTestCase
             $memberRole->value
         );
     }
+
+    public function testFindByIdReturnsNullWhenNotFound(): void
+    {
+            $memberId = MemberId::generate();
+            $this->assertNull($this->memberRepository->findById($memberId));
+    }
 }

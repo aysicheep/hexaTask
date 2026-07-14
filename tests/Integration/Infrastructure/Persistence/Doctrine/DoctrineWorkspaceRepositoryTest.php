@@ -70,4 +70,10 @@ final class DoctrineWorkspaceRepositoryTest extends KernelTestCase
         $this->assertContains($memberId2->value(), $idsMember);
         $this->assertContains($ownerId->value(), $idsMember);
     }
+
+    public function testFindByIdReturnsNullWhenNotFound(): void
+    {
+            $workspaceId = WorkspaceId::generate();
+            $this->assertNull($this->workspaceRepository->findById($workspaceId));
+    }
 }
